@@ -1,0 +1,290 @@
+body {
+    background-color: #000;
+    color: white;
+    height: 100vh;
+}
+
+  /* ---------------------- BUTTON COLOUR -----------------------------------*/
+
+.login-button{ 
+    background: #f09433; 
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+}
+
+  /* ---------------------- HOME -----------------------------------*/
+  
+.home-img{
+    position: absolute;
+    background-image: url(./Home-Img.png);
+    background-repeat: no-repeat;
+    width: 37rem;
+    height: 27rem;
+    left: 50%;
+    top: 18%;
+}
+
+.logo{
+    margin-top: 2%;
+}
+
+.home-heading{
+    margin-top: 10%;
+}
+  
+.btn-link{
+    width: 10rem;
+    margin-top: 3%;
+    border: #fff solid 1px;
+}
+
+.btn-up{
+    width: 8rem;
+}
+
+.register-home{
+    margin-left: 10%;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    left: 73%;
+    top: 4%;
+}
+
+  /* ---------------------- LOGIN / REGISTER -----------------------------------*/
+
+.login-heading{
+      margin-left: 30%;
+      font-size: 3.3rem;
+}
+
+.login-section-container{
+      margin-top: 26%;
+      margin-left: 23%;
+}
+
+.btn-login{
+      margin-left: 4%;
+}
+
+.slash{
+      margin-top: 16%;
+}
+
+.account-create-class{
+      position: absolute;
+      margin-top: 32%;
+      margin-left: 35%;
+}
+
+  /* ---------------------- DASHBOARD -----------------------------------*/
+
+.logo-dash{
+    margin-left: 3%;
+}
+
+.profile-icon{
+    margin-left: 45%;
+}
+
+.navbar-dash{
+    height: 8%;
+}
+
+.dashboard-head{
+    margin-left: 4%;
+    border-bottom: #fff solid 3px;
+    font-size: 1.2rem;
+}
+
+.head-bar{
+    margin-left: 11%;
+    border-bottom: #fff solid 2px;
+    width: 84%;
+    padding-bottom: 1%;
+}
+
+.gray-box{
+    border: none;
+    height: 3rem;
+    font-size: 1.2rem;
+    padding-top: 0.8%;
+}
+
+.date{
+    position: absolute;
+    margin-left: 0%;
+}
+
+.type{
+    position: absolute;
+    margin-left: 16%;
+}
+
+.category{
+    position: absolute;
+    margin-left: 33%;
+}
+
+.amount{
+    position: absolute;
+    margin-left: 53%;
+}
+
+.description{
+    position: absolute;
+    margin-left: 72%;
+}
+
+.delete-icon{
+    position: absolute;
+    margin-left: 80%;
+}
+
+.input-btn{
+    visibility: hidden;
+    position: absolute;
+    width: 1%;
+    margin-left: 25%;
+}
+
+.head-element{
+    margin-left: 16%;
+}
+
+.navbar-content{
+    margin-left: 1%;
+    font-size: 1.2rem;
+}
+
+.dashboard-heading{
+    margin-left: 10%;
+    margin-top: 2%;
+}
+
+.display-stats{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  
+    margin-top: 2%;
+    margin-left: -17%;    
+}
+
+.svg-icon{
+    position: absolute;
+    margin-top: 1.4%;
+    margin-left: 2%;
+}
+
+.display-stats-single{
+    width: 13rem;
+    height: 6rem;
+    border-radius: 7%;
+    margin-right: 4%;
+}
+
+.display-stats-text{
+    margin-left: 50%;
+    margin-top: 5%;
+}
+
+  /* ---------------------- ADD NEW ENTRY -----------------------------------*/
+
+.new-entry-heading{
+    margin-top: 8%;
+    margin-left: 35%;
+}
+
+.pick-date{
+    margin-top: 6%;
+    margin-left: 36%;
+}
+
+.add-new-button{
+    margin-left: 36%;
+    margin-top: 5%;
+}
+
+.profile-icon-extra{
+    margin-left: 65%;
+}
+
+.add-entry-row{
+    margin-top: 3%;
+    width: 85%;
+    margin-left: 10%;
+}
+
+.others-div{
+    width: 80%;
+    margin-left: 12%;
+    margin-top: 3%;
+    border: #fff solid 2px;
+    padding: 3%;
+}
+
+.add-btn{
+    margin-top: 3%;
+    margin-left: 14%;
+}
+
+
+  /* ---------------------- SHOW ENTRIES -----------------------------------*/
+
+.price-tag{
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: -4%;
+}
+
+.head-element-month{
+    margin-left: 12%;
+}
+
+.veggies{
+    position: absolute;
+    margin-left: 17%;
+}
+
+.travel{
+    position: absolute;
+    margin-left: 31%;
+}
+
+.ration{
+    position: absolute;
+    margin-left: 45%;
+}
+
+.medicine{
+    position: absolute;
+    margin-left: 60%;
+}
+
+.others{
+    position: absolute;
+    margin-left: 75%;
+}
+
+.showdate{
+    color: #fff;
+    background-color: #000;
+    border: none;
+}
+
+.display-stats-to-right{
+    /* position: absolute; */
+    margin-left: 38%;
+    margin-bottom: 4%;
+}
+
+.show-heading{
+    position: absolute;
+    margin-left: 10%;
+    margin-top: -10%;
+}

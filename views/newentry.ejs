@@ -1,0 +1,12 @@
+<%- include('partials/header') %>
+
+<h1 class="new-entry-heading display-4 font-weight-bold">Select a Date</h1>
+
+<form method="post" action="/newentry">
+    <input type="date" 
+    class="pick-date form-control text-center col-lg-3 form-control-lg" 
+    name="date" >
+    <button type="submit" class="btn btn-lg col-sm-3 add-new-button login-button">Select</button>
+</form>
+
+<%- include('partials/footer') %>

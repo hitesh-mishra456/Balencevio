@@ -1,0 +1,12 @@
+<%- include('partials/header') %>
+
+<h1 class="new-entry-heading display-4 font-weight-bold">Enter a Year</h1>
+
+<form method="post" action="/yearpicker">
+    <input type="text" 
+    class="pick-date form-control text-center col-lg-3 form-control-lg" 
+    name="year" >
+    <button type="submit" class="btn btn-lg col-sm-3 add-new-button login-button">Submit</button>
+</form>
+
+<%- include('partials/footer') %>
