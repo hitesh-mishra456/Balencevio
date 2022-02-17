@@ -3,8 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-const session = require('express-session');
-var RedisStore = require('connect-redis')(express);
+var session = require('cookie-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -62,22 +61,10 @@ app.use(bodyParser.urlencoded({
 // --------ESTABLISHING SESSION--------------
 
 app.use(session({
-  cookie:{
-      secure: true,
-      maxAge:60000
-         },
-  store: new RedisStore(),
-  secret: 'secret',
-  saveUninitialized: true,
-  resave: false
-  }));
-  
-  app.use(function(req,res,next){
-    if(!req.session){
-        return next(new Error('Oh no')) //handle error
-    }
-    next() //otherwise continue
-    });
+  secret: process.env.SECRET_MSG,
+  resave: false,
+  saveUninitialized: false
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
