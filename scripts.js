@@ -311,16 +311,20 @@ app.post("/addnew",function(req,res){
 
               repoItem.save();
             }else{
-              foundItems[0].veggies+=parseInt(req.body.veggies);
-              foundItems[0].travel+=parseInt(req.body.travel);
-              foundItems[0].medicine+=parseInt(req.body.medicine);
-              foundItems[0].ration+=parseInt(req.body.ration);
-              if(req.body.type=="Income"){
-                foundItems[0].others+=parseInt(req.body.amount);
-              }else{
-                foundItems[0].others-=parseInt(req.body.amount);
-              }
-              foundItems[0].type=req.body.type;
+
+              Report.updateOne({date:date},{
+                veggies:foundItems[0].veggies+parseInt(req.body.veggies),
+                travel:foundItems[0].travel+parseInt(req.body.travel),
+                medicine:foundItems[0].medicine+parseInt(req.body.medicine),
+                ration:foundItems[0].ration+parseInt(req.body.ration),
+                others:req.body.type=="Income"?foundItems[0].others+parseInt(req.body.amount):foundItems[0].others-parseInt(req.body.amount),
+                type:req.body.type
+              },function(err){
+                if(!err){
+                  // console.log("Successful");
+                }
+              });
+              // console.log(foundItems);
             }
           }
       });
@@ -427,6 +431,7 @@ app.get("/month-report", function(req, res){
         if(err){
           console.log(err);
         }else{
+          // console.log(foundItems);
           for(let i=1;i<=noOfDays;i++){
                 let dateToBeCalculated="";
                 if(i<10) dateToBeCalculated ="0";
@@ -448,6 +453,7 @@ app.get("/month-report", function(req, res){
                            expense+=item.others;
                            total-=item.others;
                       }
+                      // console.log(item);
                   }
                 });
                 setTimeout(pushData,100);
@@ -460,7 +466,6 @@ app.get("/month-report", function(req, res){
                       medicine:med,
                       others:oth
                     };
-                    // console.log(i);
                     monthlyReport.push(dailyReport);
                 }
           }
