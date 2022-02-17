@@ -53,6 +53,7 @@ let userEmail,date,monthDate,yearDate,dayDate,yearPicker,monthPicker,dayToShow;
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
+app.set('trust proxy', 1);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -60,10 +61,22 @@ app.use(bodyParser.urlencoded({
 // --------ESTABLISHING SESSION--------------
 
 app.use(session({
-  secret: process.env.SECRET_MSG,
-  resave: false,
-  saveUninitialized: false
-}));
+  cookie:{
+      secure: true,
+      maxAge:60000
+         },
+  store: new RedisStore(),
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: false
+  }));
+  
+  app.use(function(req,res,next){
+    if(!req.session){
+        return next(new Error('Oh no')) //handle error
+    }
+    next() //otherwise continue
+    });
 
 app.use(passport.initialize());
 app.use(passport.session());
