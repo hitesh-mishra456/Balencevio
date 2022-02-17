@@ -89,6 +89,8 @@ const itemSchema = new mongoose.Schema ({
 const reportSchema= new mongoose.Schema({
   username:String,
   date:String,
+  month:String,
+  year:String,
   veggies:Number,
   travel:Number,
   ration:Number,
@@ -285,7 +287,10 @@ app.post("/addnew",function(req,res){
         ration:String,
         medicine:String
       }
-
+        let monthReport=date.slice(3,6);
+        let yearReport=date.slice(7,11);
+        // console.log(monthReport);
+        // console.log(yearReport);
       Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
           if(err){
             console.log(err);
@@ -294,6 +299,8 @@ app.post("/addnew",function(req,res){
               const repoItem=new Report({
                 username:userEmail,
                 date:date,
+                month:monthReport,
+                year:yearReport,
                 veggies:parseInt(req.body.veggies),
                 travel:parseInt(req.body.travel),
                 ration:parseInt(req.body.ration),
@@ -414,37 +421,36 @@ app.get("/month-report", function(req, res){
   if (req.isAuthenticated()){
       let monthIndex=parseInt(monthToIndex(monthPicker));
       let noOfDays=daysInMonth(monthIndex,yearPicker);
-      let total=0,income=0,expense=0,monthYear=monthPicker+"-"+yearPicker;
       let monthlyReport=[],index=0;
-
-            for(let i=1;i<=noOfDays;i++){
+      let total=0,income=0,expense=0,monthYear=monthPicker+"-"+yearPicker;
+      Report.find({"username":{$eq:userEmail},"month":{$eq:monthPicker},"year":{$eq:yearPicker}}, function(err, foundItems){
+        if(err){
+          console.log(err);
+        }else{
+          for(let i=1;i<=noOfDays;i++){
                 let dateToBeCalculated="";
                 if(i<10) dateToBeCalculated ="0";
                 dateToBeCalculated +=i+"/"+monthPicker+"/"+yearPicker; 
                 let veg=0,tr=0,ra=0,med=0,oth=0;
-                Report.find({"username":{$eq:userEmail},"date":{$eq:dateToBeCalculated}}, function(err, foundItems){
-                  if (err) {
-                    console.log(err);
-                  } else {    
-                          veg=foundItems.length==0?0:String(foundItems[0].veggies);
-                          tr=foundItems.length==0?0:String(foundItems[0].travel);
-                          ra=foundItems.length==0?0:String(foundItems[0].ration);
-                          med=foundItems.length==0?0:String(foundItems[0].medicine);
-                          oth=foundItems.length==0?0:String(foundItems[0].others);
-                          if(foundItems.length!==0){
-                            expense+=(foundItems[0].veggies+foundItems[0].travel+foundItems[0].ration+foundItems[0].medicine);
-                          total-=(foundItems[0].veggies+foundItems[0].travel+foundItems[0].ration+foundItems[0].medicine);
-                            if(foundItems[0].type==="Income"){
-                              income+=foundItems[0].others;
-                              total+=foundItems[0].others;
-                            }else{
-                              expense+=foundItems[0].others;
-                              total-=foundItems[0].others;
-                            }
-                          }
-                    }
+                foundItems.forEach(item=>{
+                  if(item.date===dateToBeCalculated){
+                      veg=String(item.veggies);
+                      tr=String(item.travel);
+                      ra=String(item.ration);
+                      med=String(item.medicine);
+                      oth=String(item.others);
+                      expense+=(item.veggies+item.travel+item.ration+item.medicine);
+                      total-=(item.veggies+item.travel+item.ration+item.medicine);
+                      if(item.type==="Income"){
+                          income+=item.others;
+                          total+=item.others;
+                      }else{
+                           expense+=item.others;
+                           total-=item.others;
+                      }
+                  }
                 });
-                setTimeout(pushData,10000);
+                setTimeout(pushData,100);
                 function pushData(){
                     let dailyReport={
                       date:dateToBeCalculated,
@@ -457,13 +463,14 @@ app.get("/month-report", function(req, res){
                     // console.log(i);
                     monthlyReport.push(dailyReport);
                 }
-            }
-      // calculate().then(_=>console.log(monthlyReport));
-      setTimeout(function(){console.log(monthlyReport)},10000);
-      // console.log(monthlyReport);
-      setTimeout(function() {res.render("monthreport",{monthlyReport:monthlyReport,income:income,
-      total:total,expense:expense,monthYear:monthYear,index:index})},
-      10000);
+          }
+          // setTimeout(function(){console.log(monthlyReport)},100);
+          // console.log(monthlyReport);
+          setTimeout(function() {res.render("monthreport",{monthlyReport:monthlyReport,income:income,
+          total:total,expense:expense,monthYear:monthYear,index:index})},
+          100);
+        }
+      });
   } else {
       res.redirect("/login");
   }
