@@ -312,7 +312,7 @@ app.post("/addnew",function(req,res){
               repoItem.save();
             }else{
 
-              Report.updateOne({date:date},{
+              Report.updateOne({username:userEmail,date:date},{
                 veggies:foundItems[0].veggies+parseInt(req.body.veggies),
                 travel:foundItems[0].travel+parseInt(req.body.travel),
                 medicine:foundItems[0].medicine+parseInt(req.body.medicine),
@@ -543,6 +543,49 @@ app.get("/logout", function(req, res){
 
 app.post("/delete-item",function(req,res){
   if (req.isAuthenticated()){
+    Item.findById(req.body.button,function(err,foundItem){
+      let typeOfTr=foundItem.categoryOftransaction,categoryForDeletion;
+      if(typeOfTr==="others" && foundItem.typeOfTransaction==="Expense"){
+        Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
+             let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
+              vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
+              medDelete=foundItems[0].medicine,othDelete=foundItems[0].others+foundItem.amountOfTransaction,
+              userDelete=foundItems[0].username;
+              Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:date}},function(err){});
+              const repo=new Report({
+                username:userDelete,
+                date:dateDelete,
+                month:monthDelete,
+                year:yearDelete,
+                veggies:vegDelete,
+                travel:trDelete,
+                ration:raDelete,
+                medicine:medDelete,
+                others:othDelete
+              });
+              repo.save();
+        });
+      }else{
+        Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
+          let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
+           vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
+           medDelete=foundItems[0].medicine,othDelete=foundItems[0].others,userDelete=foundItems[0].username;
+           Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:date}},function(err){});
+           const repo=new Report({
+             username:userDelete,
+             date:dateDelete,
+             month:monthDelete,
+             year:yearDelete,
+             veggies:typeOfTr==="veggies"?vegDelete-foundItem.amountOfTransaction:vegDelete,
+             travel:typeOfTr==="travel"?trDelete-foundItem.amountOfTransaction:trDelete,
+             ration:typeOfTr==="ration"?raDelete-foundItem.amountOfTransaction:raDelete,
+             medicine:typeOfTr==="medicine"?medDelete-foundItem.amountOfTransaction:medDelete,
+             others:typeOfTr==="others"?othDelete-foundItem.amountOfTransaction:othDelete
+           });
+           repo.save();
+     }); 
+      }
+  });
       Item.findByIdAndRemove(req.body.button,req.body,function(err,data){
         if(!err)
           res.redirect("/dashboard");
@@ -554,6 +597,49 @@ app.post("/delete-item",function(req,res){
 
 app.post("/delete-item-single",function(req,res){
   if (req.isAuthenticated()){
+    Item.findById(req.body.button,function(err,foundItem){
+      let typeOfTr=foundItem.categoryOftransaction,categoryForDeletion;
+      if(typeOfTr==="others" && foundItem.typeOfTransaction==="Expense"){
+        Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
+             let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
+              vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
+              medDelete=foundItems[0].medicine,othDelete=foundItems[0].others+foundItem.amountOfTransaction,
+              userDelete=foundItems[0].username;
+              Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:date}},function(err){});
+              const repo=new Report({
+                username:userDelete,
+                date:dateDelete,
+                month:monthDelete,
+                year:yearDelete,
+                veggies:vegDelete,
+                travel:trDelete,
+                ration:raDelete,
+                medicine:medDelete,
+                others:othDelete
+              });
+              repo.save();
+        });
+      }else{
+        Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
+          let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
+           vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
+           medDelete=foundItems[0].medicine,othDelete=foundItems[0].others,userDelete=foundItems[0].username;
+           Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:date}},function(err){});
+           const repo=new Report({
+             username:userDelete,
+             date:dateDelete,
+             month:monthDelete,
+             year:yearDelete,
+             veggies:typeOfTr==="veggies"?vegDelete-foundItem.amountOfTransaction:vegDelete,
+             travel:typeOfTr==="travel"?trDelete-foundItem.amountOfTransaction:trDelete,
+             ration:typeOfTr==="ration"?raDelete-foundItem.amountOfTransaction:raDelete,
+             medicine:typeOfTr==="medicine"?medDelete-foundItem.amountOfTransaction:medDelete,
+             others:typeOfTr==="others"?othDelete-foundItem.amountOfTransaction:othDelete
+           });
+           repo.save();
+     }); 
+      }
+  });
       Item.findByIdAndRemove(req.body.button,req.body,function(err,data){
         if(!err)
           res.redirect("/show-single");
