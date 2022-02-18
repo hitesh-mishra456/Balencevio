@@ -546,12 +546,12 @@ app.post("/delete-item",function(req,res){
     Item.findById(req.body.button,function(err,foundItem){
       let typeOfTr=foundItem.categoryOftransaction,categoryForDeletion;
       if(typeOfTr==="others" && foundItem.typeOfTransaction==="Expense"){
-        Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
+        Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
              let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
               vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
               medDelete=foundItems[0].medicine,othDelete=foundItems[0].others+foundItem.amountOfTransaction,
               userDelete=foundItems[0].username;
-              Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:date}},function(err){});
+              Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err){});
               const repo=new Report({
                 username:userDelete,
                 date:dateDelete,
@@ -566,11 +566,11 @@ app.post("/delete-item",function(req,res){
               repo.save();
         });
       }else{
-        Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
+        Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
           let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
            vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
            medDelete=foundItems[0].medicine,othDelete=foundItems[0].others,userDelete=foundItems[0].username;
-           Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:date}},function(err){});
+           Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err){});
            const repo=new Report({
              username:userDelete,
              date:dateDelete,
@@ -600,12 +600,12 @@ app.post("/delete-item-single",function(req,res){
     Item.findById(req.body.button,function(err,foundItem){
       let typeOfTr=foundItem.categoryOftransaction,categoryForDeletion;
       if(typeOfTr==="others" && foundItem.typeOfTransaction==="Expense"){
-        Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
+        Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
              let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
               vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
               medDelete=foundItems[0].medicine,othDelete=foundItems[0].others+foundItem.amountOfTransaction,
               userDelete=foundItems[0].username;
-              Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:date}},function(err){});
+              Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err){});
               const repo=new Report({
                 username:userDelete,
                 date:dateDelete,
@@ -620,11 +620,11 @@ app.post("/delete-item-single",function(req,res){
               repo.save();
         });
       }else{
-        Report.find({"username":{$eq:userEmail},"date":{$eq:date}},function(err,foundItems){
+        Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
           let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
            vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
            medDelete=foundItems[0].medicine,othDelete=foundItems[0].others,userDelete=foundItems[0].username;
-           Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:date}},function(err){});
+           Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err){});
            const repo=new Report({
              username:userDelete,
              date:dateDelete,
