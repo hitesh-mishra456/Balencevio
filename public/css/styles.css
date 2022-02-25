@@ -28,6 +28,7 @@ body {
 
 .logo{
     margin-top: 2%;
+    font-size: 50px;
 }
 
 .home-heading{
@@ -82,24 +83,31 @@ body {
       margin-left: 35%;
 }
 
+.g-btn-res{
+    margin-top: 15%;
+}
+
   /* ---------------------- DASHBOARD -----------------------------------*/
 
 .logo-dash{
-    margin-left: 3%;
+    margin-left: 9%;
 }
 
-.profile-icon{
-    margin-left: 45%;
+.profile{
+    font-size: 28px;
 }
 
 .navbar-dash{
-    height: 8%;
+    margin-left: 3%;
+    font-size: 1.3rem;
 }
 
-.dashboard-head{
-    margin-left: 4%;
-    border-bottom: #fff solid 3px;
-    font-size: 1.2rem;
+.profile-icon{
+    margin-left: 1800%;
+}
+
+.expand-res{
+    display: none;
 }
 
 .head-bar{
@@ -112,6 +120,8 @@ body {
 .gray-box{
     border: none;
     height: 3rem;
+    margin-left: 11%;
+    width: 84%;
     font-size: 1.2rem;
     padding-top: 0.8%;
 }
@@ -189,6 +199,7 @@ body {
 }
 
 .display-stats-text{
+    font-size: 1.2rem;
     margin-left: 50%;
     margin-top: 5%;
 }
@@ -287,4 +298,205 @@ body {
     position: absolute;
     margin-left: 10%;
     margin-top: -10%;
+}
+
+
+  /* ---------------------- RESPONSIVENESS -----------------------------------*/
+
+@media only screen and (max-width: 500px) {
+        /* ---------------------- HOME PAGE -----------------------------------*/
+    .logo{
+        margin-top: 20%;
+        margin-left: 10%;
+        font-size: 100px;
+    }
+    .home-heading{
+        font-size: 8rem;
+        margin-top: 60%;
+        margin-left: 10%;
+    }
+    .flex-container{
+        margin-left: 10%;
+        margin-top: 16%;
+    }
+    .home-img{
+        visibility: hidden;
+    }
+    .home-para{
+        margin-left: 10%;
+        margin-top: 10%;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .btn-link{
+        width: 12rem;
+        height: 3rem;
+    }
+
+    .btn-res{
+        width: 20rem;
+        margin-top: 7%;
+        margin-left: 10%;
+    }
+       /* ---------------------- REGISTER/LOGIN PAGE -----------------------------------*/
+    .login-heading{
+        margin-left: 6%;
+        font-size: 2rem;
+    }
+    .login-section-container{
+        margin-top: 28%;
+        margin-left: 5%;
+    }
+    .btn-login{
+        margin-left: 1%;
+    }
+    .slash{
+        visibility: hidden;
+    }
+    .account-create-class{
+        margin-top: 75%;
+        margin-left: 20%;
+    }
+    .g-btn-res{
+        margin-top: -17%;
+    }
+       /* ---------------------- DASHBOARD PAGE -----------------------------------*/
+    .profile-icon{
+        visibility: hidden;
+    }
+    .expand-res{
+        display: inline;
+    }
+
+    .logo-dash{
+        font-size: 120px;
+        margin-left: 3%;
+    }
+    .display-stats{  
+        margin-top: 7%;
+        margin-left: 4%;    
+    }
+
+    .display-stats-single{
+        width: 7rem;
+        height: 4rem;
+        border-radius: 7%;
+        margin-right: 4%;
+    }
+    
+    .display-stats-text{
+        font-size: medium;
+        margin-left: 50%;
+        margin-top: 5%;
+    }
+    .dashboard-heading{
+        margin-top: 10%;
+        font-size: 1.6rem;
+        margin-left: 4%;
+    }
+    .head-bar{
+        margin-left: 2%;
+        margin-top: 7%;
+        width: 100%;
+        padding-bottom: 1%;
+    }
+    
+    .head-element,.desc{
+        font-size: 0.8rem;
+        margin-left: 9%;
+    }
+
+    .desc{
+        margin-left: 3%;
+    }
+    .gray-box{
+        margin-left: 2%;
+        width: 100%;
+        padding-top: 1.3%;
+        font-size: small;
+    }
+    .date{
+        font-size: 0.7rem;
+        margin-left: 0%;
+    }
+    
+    .type{
+        margin-left: 18%;
+    }
+    
+    .category{
+        margin-left: 37%;
+    }
+    
+    .amount{
+        margin-left: 60%;
+    }
+    .balance-text{
+        font-size: 0.9rem;
+    }
+    .description{
+        margin-left: 73%;
+    }
+    
+    .delete-icon{
+        margin-left: 92%;
+    }
+    .containing-head{
+        overflow-x: scroll;
+    }
+      /* ---------------------- ADD NEW ENTRY -----------------------------------*/
+
+    .new-entry-heading{
+        margin: 30% 0% 20% 14%;
+        font-size: 2.7rem;
+    }
+
+    .pick-date{
+        width: 80%;
+        margin-left: 9%;
+    }
+
+    .add-new-button,.add-btn{
+        width: 80%;
+        margin-top: 10%;
+        margin-left: 9%;
+    }
+    .price-tag{
+        margin-top: 17%;
+        margin-bottom: -15%;
+    }
+    .show-heading{
+        position: relative;
+    }
+    .head-element-month{
+        font-size: 0.8rem;
+        margin-left: 5.6%;
+    }
+    .veggies{
+        position: absolute;
+        margin-left: 22%;
+    }
+    
+    .travel{
+        position: absolute;
+        margin-left: 38%;
+    }
+    
+    .ration{
+        position: absolute;
+        margin-left: 53%;
+    }
+    
+    .medicine{
+        position: absolute;
+        margin-left: 70%;
+    }
+    
+    .others{
+        position: absolute;
+        margin-left: 88%;
+    }
+    .date-month{
+        font-size: 0.8rem;
+    }
 }
