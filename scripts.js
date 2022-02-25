@@ -53,7 +53,6 @@ let userEmail,date,monthDate,yearDate,dayDate,yearPicker,monthPicker,dayToShow;
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
-app.set('trust proxy', 1);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -71,9 +70,9 @@ app.use(passport.session());
 
 // --------CONNECTING WITH DATABASE AND CREATING SCHEMA--------------
 
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
+// mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
 
-// mongoose.connect("mongodb://localhost:27017/balencevioDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/balencevioDB", {useNewUrlParser: true});
 
 const itemSchema = new mongoose.Schema ({
   username: String,
@@ -124,7 +123,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "https://secure-waters-18822.herokuapp.com/auth/google/dashboard",
+    callbackURL: "http://localhost:3000/auth/google/dashboard",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -601,6 +600,7 @@ app.post("/delete-item-single",function(req,res){
       let typeOfTr=foundItem.categoryOftransaction,categoryForDeletion;
       if(typeOfTr==="others" && foundItem.typeOfTransaction==="Expense"){
         Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
+          console.log(foundItems);
              let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
               vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
               medDelete=foundItems[0].medicine,othDelete=foundItems[0].others+foundItem.amountOfTransaction,
@@ -621,6 +621,7 @@ app.post("/delete-item-single",function(req,res){
         });
       }else{
         Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
+          console.log(foundItems);
           let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
            vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
            medDelete=foundItems[0].medicine,othDelete=foundItems[0].others,userDelete=foundItems[0].username;

@@ -1,16 +1,31 @@
 <%- include('partials/header') %>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-dark navbar-dash">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark navbar-res">
     <i class="fab fa-pied-piper fa-2x logo-dash"></i>
-
-    <span class="dashboard-head">
-        <a class="nav-link text-light border-Dash" href="#"><%=date%></a>
-    </span>
-    <div class="collapse navbar-collapse profile-icon profile-icon-extra" id="navbarSupportedContent">
+    <a class="nav-link text-light navbar-dash" href="#"><%=date%></a>
+    <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-user-circle text-light profile"></i>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-2x text-light"></i>
+        <div class="expand-res">
+            <li class="nav-item">
+              <a class="dropdown-item text-light" href="/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item text-light" href="/newentry">Add New</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item text-light" href="/yearpicker">See A Entry</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item text-light" href="/logout">Log Out</a>
+            </li>
+        </div>
+        <li class="nav-item dropdown profile-icon">
+          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle text-light profile"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/dashboard">Dashboard</a>
@@ -21,7 +36,8 @@
         </li>
       </ul>
     </div>
-</nav>
+  </nav>
+
 
 <h1 class="dashboard-heading">Add New Entry</h1>
 
