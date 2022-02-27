@@ -305,7 +305,7 @@ app.post("/addnew",function(req,res){
                 travel:parseInt(req.body.travel),
                 ration:parseInt(req.body.ration),
                 medicine:parseInt(req.body.medicine),
-                others:parseInt(req.body.amount),
+                others:req.body.type=="Income"?parseInt(req.body.amount):0-parseInt(req.body.amount),
                 type:req.body.type
               });
 
@@ -444,15 +444,19 @@ app.get("/month-report", function(req, res){
                       ra=String(item.ration);
                       med=String(item.medicine);
                       oth=String(item.others);
-                      expense+=(item.veggies+item.travel+item.ration+item.medicine);
-                      total-=(item.veggies+item.travel+item.ration+item.medicine);
+                      expense+=(parseInt(item.veggies)+parseInt(item.travel)
+                      +parseInt(item.ration)+parseInt(item.medicine));
+                      total-=(parseInt(item.veggies)+parseInt(item.travel)
+                      +parseInt(item.ration)+parseInt(item.medicine));
                       if(item.type==="Income"){
                           income+=item.others;
                           total+=item.others;
                       }else{
-                           expense+=item.others;
-                           total-=item.others;
+                           expense-=parseInt(item.others);
+                           total+=item.others;
                       }
+                      // console.log(expense);
+                      // console.log(total);
                       // console.log(item);
                   }
                 });
@@ -549,7 +553,7 @@ app.post("/delete-item",function(req,res){
         Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
              let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
               vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
-              medDelete=foundItems[0].medicine,othDelete=foundItems[0].others+foundItem.amountOfTransaction,
+              medDelete=foundItems[0].medicine,othDelete=parseInt(foundItems[0].others)+parseInt(foundItem.amountOfTransaction),
               userDelete=foundItems[0].username;
               Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err){});
               const repo=new Report({
@@ -601,9 +605,10 @@ app.post("/delete-item-single",function(req,res){
       let typeOfTr=foundItem.categoryOftransaction,categoryForDeletion;
       if(typeOfTr==="others" && foundItem.typeOfTransaction==="Expense"){
         Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
+          // console.log(foundItems);
              let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
               vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
-              medDelete=foundItems[0].medicine,othDelete=foundItems[0].others+foundItem.amountOfTransaction,
+              medDelete=foundItems[0].medicine,othDelete=parseInt(foundItems[0].others)+parseInt(foundItem.amountOfTransaction),
               userDelete=foundItems[0].username;
               Report.deleteOne({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err){});
               const repo=new Report({
@@ -621,6 +626,7 @@ app.post("/delete-item-single",function(req,res){
         });
       }else{
         Report.find({"username":{$eq:userEmail},"date":{$eq:foundItem.date}},function(err,foundItems){
+          console.log(foundItems);
           let dateDelete=foundItems[0].date,monthDelete=foundItems[0].month,yearDelete=foundItems[0].year,
            vegDelete=foundItems[0].veggies,trDelete=foundItems[0].travel,raDelete=foundItems[0].ration,
            medDelete=foundItems[0].medicine,othDelete=foundItems[0].others,userDelete=foundItems[0].username;
